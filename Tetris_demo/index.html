@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/glass.css" />
-  <link rel="stylesheet" href="css/controls.css" />
+  <link rel="stylesheet" href="css/style.css?v=1.0.2" />
+  <link rel="stylesheet" href="css/glass.css?v=1.0.2" />
+  <link rel="stylesheet" href="css/controls.css?v=1.0.2" />
 </head>
 <body class="mode-sup">
   <!-- Desktop Mode Background Ambient Orbs (hidden in SUP/GB mode) -->
@@ -171,20 +171,21 @@
                 <div class="dpad-arm-vertical"></div>
                 <div class="dpad-arm-horizontal"></div>
                 <div class="dpad-center-dish"></div>
+
+                <!-- D-Pad Interactive Touch Buttons (Anchored to D-Pad body) -->
+                <button id="sup-btn-up" class="dpad-touch dpad-touch-up" aria-label="旋转 (向上)">
+                  <svg class="dpad-arrow dpad-arrow-up" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2L11 10H1z" fill="currentColor"/></svg>
+                </button>
+                <button id="sup-btn-down" class="dpad-touch dpad-touch-down" aria-label="加速软降 (向下)">
+                  <svg class="dpad-arrow dpad-arrow-down" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2L11 10H1z" fill="currentColor"/></svg>
+                </button>
+                <button id="sup-btn-left" class="dpad-touch dpad-touch-left" aria-label="向左移动">
+                  <svg class="dpad-arrow dpad-arrow-left" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2L11 10H1z" fill="currentColor"/></svg>
+                </button>
+                <button id="sup-btn-right" class="dpad-touch dpad-touch-right" aria-label="向右移动">
+                  <svg class="dpad-arrow dpad-arrow-right" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2L11 10H1z" fill="currentColor"/></svg>
+                </button>
               </div>
-              <!-- D-Pad Interactive Touch Buttons -->
-              <button id="sup-btn-up" class="dpad-touch dpad-touch-up" aria-label="旋转 (向上)">
-                <svg class="dpad-arrow dpad-arrow-up" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2L11 10H1z" fill="currentColor"/></svg>
-              </button>
-              <button id="sup-btn-down" class="dpad-touch dpad-touch-down" aria-label="加速软降 (向下)">
-                <svg class="dpad-arrow dpad-arrow-down" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2L11 10H1z" fill="currentColor"/></svg>
-              </button>
-              <button id="sup-btn-left" class="dpad-touch dpad-touch-left" aria-label="向左移动">
-                <svg class="dpad-arrow dpad-arrow-left" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2L11 10H1z" fill="currentColor"/></svg>
-              </button>
-              <button id="sup-btn-right" class="dpad-touch dpad-touch-right" aria-label="向右移动">
-                <svg class="dpad-arrow dpad-arrow-right" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 2L11 10H1z" fill="currentColor"/></svg>
-              </button>
             </div>
 
             <!-- Center: Round Help / Hotspot Hint Button -->
