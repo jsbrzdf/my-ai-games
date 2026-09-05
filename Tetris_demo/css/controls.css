@@ -363,40 +363,64 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-title);
-  font-size: 13px;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.45);
   touch-action: manipulation;
   z-index: 15;
   transition: transform 0.05s ease, color 0.1s ease;
+  padding: 0;
+  margin: 0;
+  border-radius: 6px;
+}
+
+.dpad-arrow {
+  width: 12px;
+  height: 12px;
+  display: block;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.dpad-arrow-up {
+  transform: rotate(0deg);
+}
+
+.dpad-arrow-down {
+  transform: rotate(180deg);
+}
+
+.dpad-arrow-left {
+  transform: rotate(-90deg);
+}
+
+.dpad-arrow-right {
+  transform: rotate(90deg);
 }
 
 .dpad-touch-up {
   top: 0;
   left: 38px;
   width: 44px;
-  height: 44px;
+  height: 42px;
 }
 
 .dpad-touch-down {
   bottom: 0;
   left: 38px;
   width: 44px;
-  height: 44px;
+  height: 42px;
 }
 
 .dpad-touch-left {
   left: 0;
   top: 38px;
-  width: 44px;
+  width: 42px;
   height: 44px;
 }
 
 .dpad-touch-right {
   right: 0;
   top: 38px;
-  width: 44px;
+  width: 42px;
   height: 44px;
 }
 
