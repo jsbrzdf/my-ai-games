@@ -1,0 +1,13 @@
+{
+  "name": "glass-tetris",
+  "version": "1.0.0",
+  "description": "Glassmorphism Tetris with Web Audio procedural sound & glass shard physics particles",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["tetris", "glassmorphism", "web-audio", "canvas-particles", "game"],
+  "author": "",
+  "license": "MIT"
+}

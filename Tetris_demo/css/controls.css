@@ -1,0 +1,643 @@
+/* ==========================================================================
+   SUP Retro Red Handheld - Full-Bleed 9:21 Mobile Casing Styles
+   ========================================================================== */
+
+/* Viewport Container: No background, purely holds the console */
+.sup-handheld-viewport {
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: #090a0f;
+  user-select: none;
+  -webkit-user-select: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove blurred background pseudo-element */
+.sup-handheld-viewport::before {
+  display: none !important;
+}
+
+/* Full-Bleed Handheld Body: Fills mobile screen (~9:21 aspect ratio) */
+.sup-console-fullbleed {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: 100dvh;
+  max-height: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(175deg, #e02830 0%, #d32028 45%, #b9151c 100%);
+  border-radius: min(28px, 4.5vw);
+  box-shadow: 
+    0 16px 48px rgba(0, 0, 0, 0.8),
+    inset 0 3px 4px rgba(255, 255, 255, 0.35),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.6),
+    inset 4px 0 6px rgba(255, 255, 255, 0.18),
+    inset -4px 0 6px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Mobile full-screen: 100% full-bleed edge-to-edge with NO borders or black margins */
+@media (max-width: 600px) {
+  body.mode-sup {
+    background: #d32028 !important;
+  }
+
+  .sup-handheld-viewport {
+    width: 100vw !important;
+    height: 100dvh !important;
+    background: #d32028 !important;
+    position: fixed !important;
+    inset: 0 !important;
+  }
+
+  .sup-console-fullbleed {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: 100dvh !important;
+    max-height: 100dvh !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .sup-screen-section {
+    width: calc(100% - 16px) !important;
+    height: 59dvh !important;
+    max-height: 540px !important;
+    min-height: 380px !important;
+    margin: 4px auto 0 auto !important;
+    padding: 8px 6px !important;
+  }
+}
+
+/* Top Hardware Joint Seam Line */
+.sup-top-notch {
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Upper Screen Section: Large Black Bezel with 3-Column Layout (Enlarged +1/3)
+   ========================================================================== */
+.sup-screen-section {
+  position: relative;
+  width: calc(100% - 24px);
+  height: 58vh;
+  height: 58dvh;
+  max-height: 540px;
+  min-height: 380px;
+  margin: 6px auto 0 auto;
+  background: #0d0f14;
+  border-radius: 18px;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.45),
+    inset 0 0 24px rgba(0, 0, 0, 0.95),
+    0 0 0 2px rgba(0, 0, 0, 0.6);
+  padding: 10px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* CRT Scanlines inside screen */
+.sup-screen-section .scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 25;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.25) 2px,
+    rgba(0, 0, 0, 0.25) 4px
+  );
+  opacity: 0.5;
+}
+
+/* Left Column: Retro Scoreboard */
+.sup-stats-left {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 8px 4px;
+  box-sizing: border-box;
+  font-family: var(--font-title);
+  z-index: 20;
+}
+
+.sup-stat-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sup-stat-lbl {
+  font-size: 10px;
+  font-weight: 700;
+  color: #cbd5e1;
+  letter-spacing: 0.5px;
+}
+
+.sup-stat-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #facc15;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 10px rgba(250, 204, 21, 0.7);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Center Column: 10x20 Grid Matrix */
+.sup-matrix-center {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#sup-tetris-board {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(10, var(--sup-cell-size, 16px));
+  grid-template-rows: repeat(20, var(--sup-cell-size, 16px));
+  width: calc(10 * var(--sup-cell-size, 16px)) !important;
+  height: calc(20 * var(--sup-cell-size, 16px)) !important;
+  max-width: calc(10 * var(--sup-cell-size, 16px)) !important;
+  max-height: calc(20 * var(--sup-cell-size, 16px)) !important;
+  box-sizing: content-box !important;
+  background-image: 
+    linear-gradient(rgba(0, 180, 255, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 180, 255, 0.2) 1px, transparent 1px);
+  background-size: var(--sup-cell-size, 16px) var(--sup-cell-size, 16px);
+  border: 1.5px solid rgba(0, 180, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 180, 255, 0.2);
+  border-radius: 3px;
+}
+
+/* Right Column: NEXT & HOLD */
+.sup-stats-right {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  font-family: var(--font-title);
+  padding: 6px 0;
+  box-sizing: border-box;
+  z-index: 20;
+}
+
+.sup-preview-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.sup-preview-card {
+  background: rgba(14, 20, 34, 0.8);
+  border: 1.5px solid rgba(70, 110, 180, 0.45);
+  border-radius: 10px;
+  padding: 4px;
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.65);
+}
+
+.sup-preview-grid {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  grid-template-columns: repeat(4, 12px);
+  grid-template-rows: repeat(4, 12px);
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Lower Controls Section: Streetwear "Sup" Logo + Ergonomic Handheld Buttons
+   ========================================================================== */
+.sup-controls-section {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4px 14px 12px 14px;
+  box-sizing: border-box;
+}
+
+/* Dedicated Streetwear "Sup" Logo Banner (Positioned cleanly above buttons) */
+.sup-branding-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 0 0 0;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.sup-logo-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sup-brand-svg {
+  height: 36px;
+  width: auto;
+  max-width: 130px;
+  display: block;
+}
+
+/* Interactive Controls Container */
+.sup-controls-grid {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+/* Upper Controls Row: D-Pad (Left), Fn Button (Center), Diamond 4-Buttons (Right) */
+.sup-controls-main-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   3D Realistic Matte Black Cross D-Pad
+   -------------------------------------------------------------------------- */
+.sup-dpad-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sup-dpad-body {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.65));
+}
+
+/* D-Pad Arms */
+.dpad-arm-vertical {
+  position: absolute;
+  left: 38px;
+  top: 0;
+  width: 44px;
+  height: 120px;
+  background: linear-gradient(180deg, #2a2c30 0%, #17181a 100%);
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.dpad-arm-horizontal {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  width: 120px;
+  height: 44px;
+  background: linear-gradient(180deg, #2a2c30 0%, #17181a 100%);
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 1px 1px rgba(255, 255, 255, 0.2),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Center dish of D-Pad */
+.dpad-center-dish {
+  position: absolute;
+  left: 42px;
+  top: 42px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #0e0f12 0%, #1f2024 100%);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* D-Pad Interactive Touch Buttons */
+.dpad-touch {
+  position: absolute;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.4);
+  touch-action: manipulation;
+  z-index: 15;
+  transition: transform 0.05s ease, color 0.1s ease;
+}
+
+.dpad-touch-up {
+  top: 0;
+  left: 38px;
+  width: 44px;
+  height: 44px;
+}
+
+.dpad-touch-down {
+  bottom: 0;
+  left: 38px;
+  width: 44px;
+  height: 44px;
+}
+
+.dpad-touch-left {
+  left: 0;
+  top: 38px;
+  width: 44px;
+  height: 44px;
+}
+
+.dpad-touch-right {
+  right: 0;
+  top: 38px;
+  width: 44px;
+  height: 44px;
+}
+
+.dpad-touch:active,
+.dpad-touch.active {
+  color: #ffffff;
+  transform: scale(0.92);
+}
+
+/* --------------------------------------------------------------------------
+   Center Function / Help Button
+   -------------------------------------------------------------------------- */
+.sup-center-fn-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: -24px;
+}
+
+.sup-btn-round-fn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #2a2c30 0%, #151618 100%);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 1px rgba(255, 255, 255, 0.25),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-size: 11px;
+  font-weight: 800;
+  transition: transform 0.06s ease;
+}
+
+.sup-btn-round-fn:active,
+.sup-btn-round-fn.active {
+  transform: scale(0.9);
+}
+
+/* --------------------------------------------------------------------------
+   Right 4-Button Cluster: X, Y, A, B (Diamond Layout)
+   -------------------------------------------------------------------------- */
+.sup-diamond-wrapper {
+  position: relative;
+  width: 130px;
+  height: 130px;
+}
+
+.action-round-btn {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #34373d 0%, #18191b 60%, #0d0e10 100%);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  box-shadow: 
+    0 6px 12px rgba(0, 0, 0, 0.6),
+    inset 0 2px 2px rgba(255, 255, 255, 0.25),
+    inset 0 -3px 4px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-title);
+  font-size: 16px;
+  font-weight: 900;
+  color: #1a1a1a;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.06s ease, filter 0.1s ease;
+}
+
+/* Diamond Coordinates */
+.btn-pos-x {
+  top: 0;
+  left: 42px;
+}
+
+.btn-pos-y {
+  left: 0;
+  top: 42px;
+}
+
+.btn-pos-a {
+  right: 0;
+  top: 42px;
+}
+
+.btn-pos-b {
+  bottom: 0;
+  left: 42px;
+}
+
+.action-round-btn:active,
+.action-round-btn.active {
+  transform: scale(0.9);
+  filter: brightness(1.2);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.8),
+    inset 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Bottom Row: Slanted Select/Start Pills (Left-Center) & Speaker Grille (Right)
+   -------------------------------------------------------------------------- */
+.sup-controls-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  padding: 0 8px 6px 8px;
+  box-sizing: border-box;
+}
+
+.sup-pills-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: 32px;
+}
+
+.sup-pill-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.sup-pill-btn {
+  width: 46px;
+  height: 18px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #303338 0%, #151618 100%);
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  transform: rotate(-28deg);
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: transform 0.06s ease;
+}
+
+.sup-pill-btn:active,
+.sup-pill-btn.active {
+  transform: rotate(-28deg) scale(0.9);
+}
+
+.sup-pill-label {
+  font-family: var(--font-title);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #1a1a1a;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Slanted Speaker Grille Cutout Slots (Interactive Mute Toggle) */
+.sup-speaker-grille {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transform: rotate(-28deg);
+  margin-right: 18px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  padding: 6px;
+  touch-action: manipulation;
+  transition: transform 0.08s ease, filter 0.08s ease;
+}
+
+.sup-speaker-grille:active,
+.sup-speaker-grille.active {
+  transform: rotate(-28deg) scale(0.92);
+  filter: brightness(1.4);
+}
+
+.speaker-slot {
+  width: 5px;
+  height: 26px;
+  background: #111215;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.9), 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.slot-1 { height: 16px; }
+.slot-2 { height: 22px; }
+.slot-3 { height: 28px; }
+.slot-4 { height: 24px; }
+.slot-5 { height: 18px; }
+
+/* --------------------------------------------------------------------------
+   Target Highlight Mode (Triggered by Fn/Help Button)
+   -------------------------------------------------------------------------- */
+.show-targets .dpad-touch,
+.show-targets .action-round-btn,
+.show-targets .sup-pill-btn {
+  background: rgba(255, 140, 0, 0.45) !important;
+  border: 2px solid #ff9f1c !important;
+  box-shadow: 0 0 14px rgba(255, 159, 28, 0.85), inset 0 0 8px rgba(255, 255, 255, 0.5) !important;
+  color: #ffffff !important;
+}
+
+/* ==========================================================================
+   Display Mode Switching Logic (SUP Handheld vs Desktop Arcade)
+   ========================================================================== */
+body.mode-sup #sup-handheld-view { display: flex !important; }
+body.mode-sup #desktop-arcade-view { display: none !important; }
+
+body.mode-desktop #sup-handheld-view { display: none !important; }
+body.mode-desktop #desktop-arcade-view { display: flex !important; }
+body.mode-desktop .ambient-bg { display: block; }
+body.mode-sup .ambient-bg { display: none; }
+
+/* In-Screen Modals for SUP Handheld */
+.sup-screen-section .modal-glass {
+  padding: 16px 20px;
+  gap: 8px;
+  max-width: 86%;
+}
+
+.sup-screen-section .modal-glass h3 {
+  font-size: 18px;
+  margin-bottom: 2px;
+}
+
+.sup-screen-section .modal-glass p {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.sup-screen-section .modal-glass .glass-btn {
+  padding: 8px 16px;
+  font-size: 12px;
+  width: 100%;
+}
+
