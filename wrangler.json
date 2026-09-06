@@ -1,8 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "glass-tetris",
+  "name": "my-ai-games",
   "compatibility_date": "2026-09-03",
   "assets": {
-    "directory": "./Tetris_demo"
+    "directory": "./dist"
   }
 }

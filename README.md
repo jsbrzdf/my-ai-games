@@ -14,31 +14,61 @@
 | 游戏名称 | 目录路径 | 核心特色 / 视觉与音效亮点 | 状态 |
 | :--- | :--- | :--- | :---: |
 | 🧊 **Glass Tetris (毛玻璃俄罗斯方块)** | [`Tetris_demo/`](./Tetris_demo/) | 毛玻璃拟态美学、Web Audio 程序化音效、碎片爆炸粒子物理系统、零依赖开发服务 | ✅ 已完成 |
-| 🚀 **Next Game 1** | *待定* | 规划中（如：贪吃蛇 / 2048 / 经典打砖块 / 弹幕射击等） | 💡 筹备中 |
-| 🎲 **Next Game 2** | *待定* | 规划中 | 💡 筹备中 |
+| ⚡ **Neon Beat Leap (3D 霓虹节奏音游)** | [`Rhythm_demo/`](./Rhythm_demo/) | Three.js 赛博空间、100% 程序化电音实时合成（4首原创关卡）、空格/四色块双操作模式、动态粒子律动 | ✅ 已完成 |
+| 🚀 **Next Game** | *待定* | 规划中（如：贪吃蛇 / 2048 / 经典打砖块 / 弹幕射击等） | 💡 筹备中 |
 
 ---
 
-## 🚀 快速开始
+## 🚀 快速开始与本地预览
 
-本项目的小游戏均为纯前端轻量化设计，提供两种运行方式：
+本项目支持**统一游戏大厅**（推荐，全量体验）或**单游戏独立运行**：
 
-### 方式一：直接浏览器打开（最快捷）
-无需安装任何依赖，直接使用现代浏览器（Chrome / Edge / Firefox / Safari）双击打开对应游戏目录下的 `index.html` 即可开始游玩。
-
-### 方式二：本地服务启动（体验更佳）
-以 **Glass Tetris** 为例，内置了**零外部依赖**的轻量 Node.js 服务器：
+### 🌟 方式一：启动统一游戏大厅 (Game Hub Portal - 推荐)
+一次性编译音游并组装全站，在浏览器中畅玩完整的极客游戏游乐场：
 
 ```bash
-# 1. 进入游戏目录
-cd Tetris_demo
+# 1. 自动执行依赖编译与大厅聚合打包 (产物输出至 ./dist)
+npm run build
 
-# 2. 启动服务（内置零依赖 server.js）
+# 2. 启动零外部依赖的极速预览服务
 npm start
-# 或者直接: node server.js
+```
+启动后在浏览器打开 `http://localhost:3000` 即可沉浸式访问游戏大厅，点击卡片自由切换各款小游戏，游戏内随时可通过「🏠 返回大厅」无缝回退。
+
+---
+
+### 🕹️ 方式二：单游戏独立运行
+
+#### 1. Glass Tetris (毛玻璃俄罗斯方块)
+内置**零外部依赖**的轻量 Node.js 服务器，亦可直接双击 `index.html` 游玩：
+
+```bash
+cd Tetris_demo
+npm start
+# 访问 http://localhost:5173
 ```
 
-终端将输出本地访问地址（默认端口为 `http://localhost:5173`），在浏览器中打开即可。
+#### 2. Neon Beat Leap (3D 霓虹节奏音游)
+基于现代前端构建工具 Vite 与 Three.js 构建：
+
+```bash
+cd Rhythm_demo
+npm install
+npm run dev
+# 访问 http://localhost:5173 或 Vite 提示端口
+```
+
+---
+
+## 🌐 Cloudflare Pages 一体化部署
+
+本项目已预置好 Cloudflare Pages 统一部署配置（见 [`wrangler.json`](./wrangler.json)）。
+
+若你在 Cloudflare Pages 后台关联了本 GitHub 仓库，仅需在构建设置中配置：
+- **Build command (构建命令)**: `npm run build`
+- **Build output directory (输出目录)**: `dist`
+
+每次推送代码至 `main` 分支，Cloudflare 将自动触发全量构建，一键发布包含**游戏大厅**、`/tetris/` 和 `/rhythm/` 的完整站点！
 
 ---
 
@@ -54,30 +84,48 @@ npm start
 | 按键 | 功能 |
 | :--- | :--- |
 | `←` / `→` 或 `A` / `D` | 左右移动方块 |
-| `↓` 或 `S` | 软降（加速下落） |
-| `↑` 或 `W` | 顺时针旋转方块 |
+| `↓` / `S` | 软降（加速下落） |
+| `↑` / `W` | 顺时针旋转方块 |
 | `Space (空格键)` | 硬降（瞬降触底） |
 | `C` 或 `Shift` | 暂存方块 (Hold) |
 | `P` 或 `Esc` | 暂停 / 继续游戏 |
 
 ---
 
+## ⚡ 现有游戏展示：Neon Beat Leap (Rhythm_demo)
+
+### 游戏亮点
+- **沉浸式 3D 赛博空间**：基于 Three.js 构建立体发光轨道、根据节拍起伏的跳跃小球与飞溅的霓虹冲击波。
+- **100% 原生纯代码电音合成**：零外部 MP3/WAV 素材，通过原生 Web Audio API 实时演算合成 4 大原创电音关卡（Chillwave / Electro House / Future Bass / Cyber Speedcore）。
+- **双维度操作模式**：
+  - **休闲单键模式**：只需敲击 `Space (空格键)` 或点击屏幕中央，随下落节拍起跳。
+  - **硬核四色键位模式**：键盘 `D`、`F`、`J`、`K`（或触屏四色按键）对应底鼓、军鼓、踩镲与高音主音，享受敲键快感。
+- **自适应与触屏支持**：支持 PC 键盘与手机触控交互，视觉效果随连击动态绽放。
+
+---
+
 ## 📂 仓库结构与扩展规范
 
-后续新增小游戏时，建议遵循统一的独立模块化结构：
+本项目遵循每个小游戏独立成包、互不干扰的模块化设计：
 
 ```text
 my-ai-games/
+├── .gitignore          # 全局 Git 忽略规则
 ├── LICENSE             # MIT 开源许可证
 ├── README.md           # 游乐场主索引与说明
-├── Tetris_demo/        # 俄罗斯方块独立游戏目录
-│   ├── index.html      # 页面入口
-│   ├── css/            # 样式文件 (Glassmorphism 动效)
-│   ├── js/             # 游戏核心引擎与音频逻辑
-│   ├── assets/         # 静态资源
-│   ├── server.js       # 零依赖本地轻量服务
-│   └── package.json    # 启动脚本与元信息
-└── <Next_Game>/        # 后续小游戏（按此结构独立建包）
+├── wrangler.json       # Cloudflare Pages 部署配置
+├── Tetris_demo/        # 俄罗斯方块 (纯原生+零依赖服务)
+│   ├── index.html
+│   ├── css/
+│   ├── js/
+│   ├── server.js
+│   └── package.json
+├── Rhythm_demo/        # 3D 霓虹节奏音游 (Vite + Three.js)
+│   ├── index.html
+│   ├── vite.config.js
+│   ├── package.json
+│   └── src/
+└── <Next_Game>/        # 后续小游戏（按此规范独立建包）
 ```
 
 ---

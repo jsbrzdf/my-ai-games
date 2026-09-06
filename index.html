@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>🎮 My AI Games · 极客小游戏游乐场 (AI Arcade Hub)</title>
+  <meta name="description" content="一个由 AI 协同驱动开发的轻量级 Web 独立小游戏合集项目。涵盖毛玻璃俄罗斯方块、3D 霓虹节奏音游，纯前端架构，零素材依赖，即开即玩！" />
+
+  <!-- Google Fonts: Orbitron & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="hub.css" />
+</head>
+<body>
+  <!-- Ambient Floating Orbs and Grid Scene -->
+  <div class="ambient-scene">
+    <div class="ambient-grid"></div>
+    <div class="ambient-orb orb-cyan"></div>
+    <div class="ambient-orb orb-pink"></div>
+    <div class="ambient-orb orb-purple"></div>
+  </div>
+
+  <div class="hub-container">
+    <!-- Top Navigation -->
+    <header class="hub-nav">
+      <a href="./" class="nav-brand-group">
+        <div class="brand-icon-box">🎮</div>
+        <div class="brand-text-col">
+          <span class="brand-title">MY AI GAMES</span>
+          <span class="brand-tag">ARCADE PLAYGROUND</span>
+        </div>
+      </a>
+
+      <div class="nav-links">
+        <button id="hub-sound-btn" class="nav-audio-toggle" title="音效开关">
+          <span id="sound-icon">🔊</span>
+          <span id="sound-text">SFX: ON</span>
+        </button>
+
+        <a href="https://github.com/jsbrzdf/my-ai-games" target="_blank" rel="noopener noreferrer" class="nav-link-btn" title="查看 GitHub 源码">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-pill-badge">
+        <span class="pill-dot"></span>
+        <span>AI-POWERED ARCADE PLAYGROUND</span>
+      </div>
+      <h1 class="hero-title">探索纯前端互动与声画边界</h1>
+      <p class="hero-desc">
+        由 AI 深度协同开发的轻量级 Web 独立小游戏合集。融合 3D 渲染空间、实时程序化电音合成与毛玻璃流光美学，零素材资源负担，随时即开即玩。
+      </p>
+
+      <div class="hero-stats-row">
+        <div class="hero-stat-item">
+          <span class="stat-num">02</span>
+          <span class="stat-label">已上线游戏</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Web Audio 原生合成</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="hero-stat-item">
+          <span class="stat-num">0 KB</span>
+          <span class="stat-label">外部音频素材体积</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Catalog Section -->
+    <main>
+      <div class="section-header">
+        <h2 class="section-title">
+          <span>🕹️</span>
+          <span>游戏精选集</span>
+        </h2>
+        <span class="section-subtitle">点击卡片即可直接进入游戏</span>
+      </div>
+
+      <div class="games-grid">
+        <!-- Game 1: Glass Tetris -->
+        <article class="game-card card-tetris">
+          <div class="card-banner banner-tetris">
+            <div class="card-banner-bg"></div>
+            <div class="art-tetris-preview">
+              <div class="tetris-block-sample sample-1"></div>
+              <div class="tetris-block-sample sample-2"></div>
+              <div class="tetris-block-sample sample-3"></div>
+            </div>
+            <span class="card-badge badge-tetris">经典街机 · 拟态美学</span>
+          </div>
+
+          <div class="card-body">
+            <div class="card-title-group">
+              <h3 class="card-title">Glass Tetris</h3>
+              <p class="card-subtitle">毛玻璃潮酷复古俄罗斯方块</p>
+            </div>
+
+            <p class="card-desc">
+              采用现代 Glassmorphism 毛玻璃拟态打造，内置原生 Canvas 玻璃碎片物理爆炸飞溅与 Web Audio 算法实时合成音效。
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="feature-bullet">🧊</span>
+                <span>拟态美学：磨砂透明质感与流动渐变阴影</span>
+              </li>
+              <li class="feature-item">
+                <span class="feature-bullet">💥</span>
+                <span>物理粒子：消行动画碎裂与重力阻尼模拟</span>
+              </li>
+              <li class="feature-item">
+                <span class="feature-bullet">🕹️</span>
+                <span>双模游玩：支持 SUP 掌机外观与全屏模式</span>
+              </li>
+            </ul>
+
+            <div class="tag-cloud">
+              <span class="tag-pill">Vanilla JS</span>
+              <span class="tag-pill">Canvas 2D</span>
+              <span class="tag-pill">Web Audio</span>
+              <span class="tag-pill">零外部依赖</span>
+            </div>
+
+            <a href="./tetris/" class="btn-card-action btn-cyan" id="play-tetris-btn">
+              <span>🎮 立即游玩 (PLAY NOW)</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Game 2: Neon Beat Leap -->
+        <article class="game-card card-rhythm">
+          <div class="card-banner banner-rhythm">
+            <div class="card-banner-bg"></div>
+            <div class="art-rhythm-preview">
+              <div class="rhythm-wave-circle"></div>
+              <div class="rhythm-core-orb"></div>
+            </div>
+            <span class="card-badge badge-rhythm">3D 节奏 · 原创电音</span>
+          </div>
+
+          <div class="card-body">
+            <div class="card-title-group">
+              <h3 class="card-title">Neon Beat Leap</h3>
+              <p class="card-subtitle">3D 霓虹赛博空间节奏音游</p>
+            </div>
+
+            <p class="card-desc">
+              基于 Three.js 打造发光立体跑道与节拍律动小球。零外部 MP3 音频文件，纯代码实时演算法合成 4 大原创关卡电音！
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="feature-bullet">🌌</span>
+                <span>3D 赛博空间：Three.js 深度立体渲染与打击光效</span>
+              </li>
+              <li class="feature-item">
+                <span class="feature-bullet">🎧</span>
+                <span>4 大原创曲目：Lo-Fi、House、Future Bass、Speedcore</span>
+              </li>
+              <li class="feature-item">
+                <span class="feature-bullet">⚡</span>
+                <span>双维度打歌：支持空格单键跳跃与四色音轨模式</span>
+              </li>
+            </ul>
+
+            <div class="tag-cloud">
+              <span class="tag-pill">Three.js</span>
+              <span class="tag-pill">Vite</span>
+              <span class="tag-pill">纯代码电音</span>
+              <span class="tag-pill">触屏 & 键盘</span>
+            </div>
+
+            <a href="./rhythm/" class="btn-card-action btn-pink" id="play-rhythm-btn">
+              <span>⚡ 启动节拍 (LAUNCH BEAT)</span>
+            </a>
+          </div>
+        </article>
+
+        <!-- Game 3: Coming Soon Lab -->
+        <article class="game-card card-lab">
+          <div class="card-banner banner-lab">
+            <div class="art-lab-preview">🤖</div>
+            <span class="card-badge badge-lab">AI 实验工坊 · 筹备中</span>
+          </div>
+
+          <div class="card-body">
+            <div class="card-title-group">
+              <h3 class="card-title">Next Game Lab</h3>
+              <p class="card-subtitle">经典新编 / 趣味探索 #03</p>
+            </div>
+
+            <p class="card-desc">
+              下一款 AI 协同驱动的 Web 小游戏正在孵化中。欢迎在 GitHub 提交 Issue 建议你最期待移植或重塑的经典玩法！
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item">
+                <span class="feature-bullet">🐍</span>
+                <span>候选玩法：极光流体贪吃蛇 / 赛博 2048</span>
+              </li>
+              <li class="feature-item">
+                <span class="feature-bullet">🧱</span>
+                <span>候选玩法：霓虹弹珠打砖块 / 极速弹幕回避</span>
+              </li>
+              <li class="feature-item">
+                <span class="feature-bullet">💡</span>
+                <span>纯前端、轻量化与高品质视听一贯坚持</span>
+              </li>
+            </ul>
+
+            <div class="tag-cloud">
+              <span class="tag-pill">Coming Soon</span>
+              <span class="tag-pill">AI 协同</span>
+              <span class="tag-pill">创意编程</span>
+            </div>
+
+            <button class="btn-card-action btn-disabled" disabled>
+              <span>🚀 正在孵化中...</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="hub-footer">
+      <div>
+        <span>© 2026 My AI Games. Built with AI & Web Standards.</span>
+      </div>
+      <div class="footer-links">
+        <a href="./LICENSE" class="footer-link">MIT License</a>
+        <a href="https://github.com/jsbrzdf/my-ai-games" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub 仓库</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Interactive Sound & Micro-FX Script -->
+  <script>
+    // Tiny Web Audio synthesizer for hub interactions
+    let audioCtx = null;
+    let sfxEnabled = true;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+      }
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playBlip(freq = 440, type = 'sine', duration = 0.08, gain = 0.05) {
+      if (!sfxEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        g.gain.setValueAtTime(gain, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+        osc.connect(g);
+        g.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    // Toggle SFX
+    const soundBtn = document.getElementById('hub-sound-btn');
+    const soundIcon = document.getElementById('sound-icon');
+    const soundText = document.getElementById('sound-text');
+
+    soundBtn.addEventListener('click', () => {
+      sfxEnabled = !sfxEnabled;
+      soundIcon.textContent = sfxEnabled ? '🔊' : '🔇';
+      soundText.textContent = sfxEnabled ? 'SFX: ON' : 'SFX: OFF';
+      if (sfxEnabled) playBlip(587.33, 'triangle', 0.1, 0.08);
+    });
+
+    // Sound on hover over interactive cards
+    document.querySelectorAll('.game-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        playBlip(329.63, 'sine', 0.06, 0.03);
+      });
+    });
+
+    // Sound on action buttons
+    document.querySelectorAll('.btn-card-action:not([disabled])').forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        playBlip(523.25, 'triangle', 0.08, 0.05);
+      });
+      btn.addEventListener('click', () => {
+        playBlip(659.25, 'triangle', 0.12, 0.08);
+      });
+    });
+  </script>
+</body>
+</html>

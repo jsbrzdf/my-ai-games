@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Neon Beat Leap - 3D 霓虹街机节奏音游</title>
+  <meta name="description" content="100% 纯代码生成电子音游！基于 Three.js 3D 引擎与 Web Audio API 原生音频合成，零资源依赖，即开即玩！">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./src/style.css">
+</head>
+<body>
+  <!-- 3D Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <!-- Top Progress Bar -->
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <!-- Main Game HUD -->
+  <header id="game-hud">
+    <div class="hud-left">
+      <a href="../" class="btn-hub-nav" title="返回游戏大厅" aria-label="返回游戏大厅">
+        <span>🏠</span>
+      </a>
+      <div class="brand-badge">
+        <span class="pulse-dot"></span>
+        <span class="brand-title">NEON BEAT</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-label">SCORE</span>
+        <span id="score-display" class="stat-val">000000</span>
+      </div>
+    </div>
+
+    <div class="hud-center">
+      <div id="next-cue-box" class="next-cue-box">
+        <span class="cue-label">NEXT:</span>
+        <span id="next-cue-badge" class="cue-badge">SPACE · 踩点</span>
+      </div>
+    </div>
+
+    <div class="hud-right">
+      <div class="stat-box">
+        <span class="stat-label">ACCURACY</span>
+        <span id="accuracy-display" class="stat-val">100.0%</span>
+      </div>
+      <button id="btn-pause" class="icon-btn" title="Pause" aria-label="Pause Game">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Floating Center Combo Display (Moved to open space) -->
+  <div id="combo-container" class="combo-hidden">
+    <span id="combo-count">0</span>
+    <span class="combo-text">COMBO</span>
+  </div>
+
+  <!-- Center Judgement Feedback Area -->
+  <div id="judgement-area">
+    <div id="judgement-text" class="judgement-popup"></div>
+    <div id="judgement-sub"></div>
+  </div>
+
+  <!-- Bottom Interactive Color Pads -->
+  <div id="controls-container">
+    <button id="pad-btn-0" class="pad-button color-cyan" data-index="0" aria-label="Cyan Pad">
+      <div class="pad-shine"></div>
+      <div class="pad-inner">
+        <span class="pad-key-hint">D</span>
+        <span class="pad-color-name">CYAN</span>
+      </div>
+    </button>
+
+    <button id="pad-btn-1" class="pad-button color-pink" data-index="1" aria-label="Pink Pad">
+      <div class="pad-shine"></div>
+      <div class="pad-inner">
+        <span class="pad-key-hint">F</span>
+        <span class="pad-color-name">PINK</span>
+      </div>
+    </button>
+
+    <button id="pad-btn-2" class="pad-button color-yellow" data-index="2" aria-label="Yellow Pad">
+      <div class="pad-shine"></div>
+      <div class="pad-inner">
+        <span class="pad-key-hint">J</span>
+        <span class="pad-color-name">YELLOW</span>
+      </div>
+    </button>
+
+    <button id="pad-btn-3" class="pad-button color-purple" data-index="3" aria-label="Purple Pad">
+      <div class="pad-shine"></div>
+      <div class="pad-inner">
+        <span class="pad-key-hint">K</span>
+        <span class="pad-color-name">PURPLE</span>
+      </div>
+    </button>
+  </div>
+
+  <!-- Start Game Modal Overlay (Arcade Stage Selector) -->
+  <div id="start-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <a href="../" class="modal-back-hub" title="返回游戏大厅">← 🏠 游戏大厅</a>
+          <span class="stage-genre-tag" style="margin:0;">V1.0</span>
+        </div>
+        <h1 class="game-logo">NEON BEAT LEAP</h1>
+        <p class="game-tagline">CYBER RHYTHM ARCADE · 选关即玩</p>
+      </div>
+
+      <!-- Start Game Primary Action at Top -->
+      <button id="btn-start-game" class="btn-primary-action btn-start-top">
+        <span class="btn-text">START BEAT (开始游戏)</span>
+        <div class="btn-glow"></div>
+      </button>
+
+      <!-- Stage / Track Selector Section -->
+      <div class="modal-section">
+        <div class="section-title-row">
+          <label class="section-title">选择关卡 (SELECT TRACK)</label>
+        </div>
+
+        <div class="stages-grid" id="stages-selector">
+          <!-- Stage 1 -->
+          <div class="stage-card selected" data-track="stage1" data-bpm="80">
+            <div class="stage-card-glow"></div>
+            <div class="stage-card-header">
+              <span class="stage-badge stage-badge-cyan">STAGE 01</span>
+              <span class="stage-genre-tag">Chillwave · 80 BPM</span>
+            </div>
+            <div class="stage-title-row">
+              <h3 class="stage-title">Neon Breeze <span class="stage-cn">霓虹慢步</span></h3>
+            </div>
+            <div class="stage-card-footer">
+              <div class="stage-stars">★☆☆☆</div>
+              <button class="btn-preview-track" data-track="stage1" title="试听旋律">
+                <span class="preview-icon">▶</span>
+                <span class="preview-text">试听</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="stage-card" data-track="stage2" data-bpm="112">
+            <div class="stage-card-glow"></div>
+            <div class="stage-card-header">
+              <span class="stage-badge stage-badge-pink">STAGE 02</span>
+              <span class="stage-genre-tag">House · 112 BPM</span>
+            </div>
+            <div class="stage-title-row">
+              <h3 class="stage-title">Cyber Pulse <span class="stage-cn">赛博脉冲</span></h3>
+            </div>
+            <div class="stage-card-footer">
+              <div class="stage-stars">★★☆☆</div>
+              <button class="btn-preview-track" data-track="stage2" title="试听旋律">
+                <span class="preview-icon">▶</span>
+                <span class="preview-text">试听</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="stage-card" data-track="stage3" data-bpm="136">
+            <div class="stage-card-glow"></div>
+            <div class="stage-card-header">
+              <span class="stage-badge stage-badge-yellow">STAGE 03</span>
+              <span class="stage-genre-tag">Future Bass · 136 BPM</span>
+            </div>
+            <div class="stage-title-row">
+              <h3 class="stage-title">Starlight Leap <span class="stage-cn">星芒跳跃</span></h3>
+            </div>
+            <div class="stage-card-footer">
+              <div class="stage-stars">★★★☆</div>
+              <button class="btn-preview-track" data-track="stage3" title="试听旋律">
+                <span class="preview-icon">▶</span>
+                <span class="preview-text">试听</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="stage-card" data-track="stage4" data-bpm="160">
+            <div class="stage-card-glow"></div>
+            <div class="stage-card-header">
+              <span class="stage-badge stage-badge-purple">STAGE 04</span>
+              <span class="stage-genre-tag">Speedcore · 160 BPM</span>
+            </div>
+            <div class="stage-title-row">
+              <h3 class="stage-title">Overdrive Rush <span class="stage-cn">极速过载</span></h3>
+            </div>
+            <div class="stage-card-footer">
+              <div class="stage-stars">★★★★</div>
+              <button class="btn-preview-track" data-track="stage4" title="试听旋律">
+                <span class="preview-icon">▶</span>
+                <span class="preview-text">试听</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Difficulty Selector -->
+      <div class="modal-section">
+        <label class="section-title">难度按键 (KEYS)</label>
+        <div class="option-grid diff-grid" id="diff-selector">
+          <button class="option-btn" data-keys="1">1 键 (Space)</button>
+          <button class="option-btn selected" data-keys="2">2 键 ★ (推荐)</button>
+          <button class="option-btn" data-keys="3">3 键 (进阶)</button>
+          <button class="option-btn" data-keys="4">4 键 (全音阶)</button>
+        </div>
+      </div>
+
+      <div class="quick-play-tip">
+        <span class="tip-dot">💡</span>
+        <span>小球触底瞬间敲击 · 2 键推荐双手 (左手 <strong>D</strong> / 右手 <strong>K</strong> 或 <strong>空格</strong>)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pause Modal (Cyberpunk Frosted Overlay) -->
+  <div id="pause-modal" class="modal-overlay hidden">
+    <div class="modal-card pause-card">
+      <div class="pause-header">
+        <div class="pause-icon-badge">⏸</div>
+        <div class="pause-title-wrap">
+          <span class="pause-subtitle">GAME PAUSED</span>
+          <h2 id="pause-stage-name" class="pause-stage-title">STAGE 01 · Neon Breeze</h2>
+        </div>
+      </div>
+
+      <div class="pause-stats-bar">
+        <div class="pause-stat">
+          <span class="pause-stat-label">SCORE</span>
+          <span id="pause-stat-score" class="pause-stat-val">000000</span>
+        </div>
+        <div class="pause-stat">
+          <span class="pause-stat-label">COMBO</span>
+          <span id="pause-stat-combo" class="pause-stat-val">0</span>
+        </div>
+        <div class="pause-stat">
+          <span class="pause-stat-label">ACCURACY</span>
+          <span id="pause-stat-accuracy" class="pause-stat-val">100.0%</span>
+        </div>
+      </div>
+
+      <div class="pause-actions-grid">
+        <button id="btn-resume-game" class="btn-primary-action">
+          <span class="btn-text">▶ 继续游戏 (RESUME)</span>
+          <div class="btn-glow"></div>
+        </button>
+
+        <div class="pause-secondary-actions">
+          <button id="btn-pause-restart" class="btn-secondary-action">
+            <span class="btn-secondary-icon">🔄</span>
+            <span>重新开始</span>
+          </button>
+          <button id="btn-pause-home" class="btn-secondary-action btn-return-home">
+            <span class="btn-secondary-icon">🏠</span>
+            <span>返回首页</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Over / Victory Modal -->
+  <div id="result-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="result-header">
+        <span class="result-title">STAGE COMPLETED</span>
+        <div id="result-rank" class="rank-badge">S</div>
+      </div>
+
+      <div id="result-stage-name" class="result-stage-name">STAGE 01 · Neon Breeze</div>
+
+      <div class="result-stats-grid">
+        <div class="res-stat-box">
+          <span class="res-label">FINAL SCORE</span>
+          <span id="res-score" class="res-value highlight">0</span>
+        </div>
+        <div class="res-stat-box">
+          <span class="res-label">MAX COMBO</span>
+          <span id="res-max-combo" class="res-value">0</span>
+        </div>
+        <div class="res-stat-box">
+          <span class="res-label">ACCURACY</span>
+          <span id="res-accuracy" class="res-value">100%</span>
+        </div>
+      </div>
+
+      <div class="judgement-breakdown">
+        <div class="breakdown-item perfect-color">
+          <span>PERFECT</span>
+          <strong id="res-perfect">0</strong>
+        </div>
+        <div class="breakdown-item good-color">
+          <span>GOOD</span>
+          <strong id="res-good">0</strong>
+        </div>
+        <div class="breakdown-item miss-color">
+          <span>MISS</span>
+          <strong id="res-miss">0</strong>
+        </div>
+      </div>
+
+      <div class="result-actions-row">
+        <button id="btn-restart-game" class="btn-primary-action">
+          <span class="btn-text">再玩一次 (PLAY AGAIN)</span>
+          <div class="btn-glow"></div>
+        </button>
+        <button id="btn-result-home" class="btn-secondary-action btn-return-home">
+          <span class="btn-secondary-icon">🏠</span>
+          <span>返回首页 (STAGE SELECT)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
